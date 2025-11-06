@@ -1,21 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { useProdiTable } from "@/lib/hooks/data-kampus/perguruan-tinggi/prod/useProdTable";
-import type { ProgramStudiItem } from "@/lib/services/data-kampus/pendidikan-tinggi/prod/type";
+import { useKlskulTable } from "@/lib/hooks/data-kampus/perkuliahan/kls-kul/useKlskulTable";
+import type { KelasKuliahItem } from "@/lib/services/perkuliahan/klskul/type";
 
 import Link from 'next/link';
 import { 
 	FiSearch, 
 	FiChevronLeft, 
 	FiChevronRight,
-	FiLayers,
-	FiUser,
 	FiBookOpen,
-	FiAward,
-	FiTrendingUp,
-	FiTag,
-	FiMapPin,
+	FiCode,
+	FiUsers,
+	FiCalendar,
+	FiUser,
+	FiLayers,
 	FiPlus,
 	FiEye,
 	FiTrash
@@ -26,7 +25,7 @@ export default function Page() {
 	const [perPage, setPerPage] = useState<number>(10);
 	const [q, setQ] = useState<string>("");
 
-	const { data, isLoading, error } = useProdiTable({ page, per_page: perPage, q });
+	const { data, isLoading, error } = useKlskulTable({ page, per_page: perPage, q });
 
 	// Skeleton loader component — mirror actual table responsive columns so layout doesn't shift
 	const SkeletonRow = () => (
@@ -38,16 +37,19 @@ export default function Page() {
 				<div className="h-4 bg-slate-200 rounded shimmer w-48"></div>
 			</td>
 			<td className="px-3 md:px-6 py-3 md:py-4">
+				<div className="h-4 bg-slate-200 rounded shimmer w-12"></div>
+			</td>
+			<td className="px-3 md:px-6 py-3 md:py-4">
 				<div className="h-4 bg-slate-200 rounded shimmer w-32"></div>
 			</td>
 			<td className="px-3 md:px-6 py-3 md:py-4">
-				<div className="h-4 bg-slate-200 rounded shimmer w-24"></div>
+				<div className="h-4 bg-slate-200 rounded shimmer w-40"></div>
 			</td>
 			<td className="px-3 md:px-6 py-3 md:py-4">
-				<div className="h-4 bg-slate-200 rounded shimmer w-28"></div>
+				<div className="h-4 bg-slate-200 rounded shimmer w-16"></div>
 			</td>
 			<td className="px-3 md:px-6 py-3 md:py-4">
-				<div className="h-4 bg-slate-200 rounded shimmer w-20"></div>
+				<div className="h-4 bg-slate-200 rounded shimmer w-16"></div>
 			</td>
 			<td className="px-3 md:px-6 py-3 md:py-4">
 				<div className="h-4 bg-slate-200 rounded shimmer w-24"></div>
@@ -161,14 +163,13 @@ export default function Page() {
 
 			{/* Header */}
 			<div className="mb-6 md:mb-8 slide-in-left">
-				{/* Stack the heading and subtitle so they align reliably */}
 				<h1
 					className="text-2xl md:text-4xl font-bold transition-colors duration-300 cursor-default"
 					style={{ color: 'var(--siakad-blue)' }}
 				>
-					Program Studi
+					Kelas Kuliah
 				</h1>
-				<p className="mt-1 text-sm md:text-base text-slate-600 hover:text-slate-800 transition-colors duration-200">Kelola data program studi</p>
+				<p className="mt-1 text-sm md:text-base text-slate-600 hover:text-slate-800 transition-colors duration-200">Kelola data kelas kuliah</p>
 			</div>
 
 			{/* Controls Card */}
@@ -179,7 +180,7 @@ export default function Page() {
 						<FiSearch className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-slate-400 group-hover:text-indigo-600 group-hover:scale-125 transition-all duration-300 wiggle-hover" />
 						<input
 							type="search"
-							placeholder="Cari program studi..."
+							placeholder="Cari kelas kuliah..."
 							value={q}
 							onChange={(e) => { setQ(e.target.value); setPage(1); }}
 							className="w-full pl-10 md:pl-12 pr-3 md:pr-4 py-2.5 md:py-3 text-sm md:text-base bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 focus:bg-white focus:shadow-lg focus:scale-[1.02] transition-all duration-300 hover:border-indigo-300 hover:shadow-md"
@@ -202,7 +203,7 @@ export default function Page() {
 						{/* Add button (right aligned) */}
 						<div className="ml-auto">
 							<Link
-								href="/siakad/admin/create-prod"
+								href="/siakad/admin/create-klskul"
 								className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--siakad-blue)] text-white rounded-lg shadow-md transform transition-all duration-300 will-change-transform hover:scale-105 hover:shadow-xl active:scale-95 focus:outline-none focus:ring-4 focus:ring-indigo-200 pulse-glow"
 							>
 								<FiPlus className="text-base transition-transform duration-300" />
@@ -219,38 +220,44 @@ export default function Page() {
 							<tr className="bg-indigo-600 text-white">
 								<th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-semibold tracking-wider group">
 									<div className="flex items-center gap-1 md:gap-2">
-										<FiBookOpen className="text-indigo-200 group-hover:text-white group-hover:rotate-12 group-hover:scale-125 transition-all duration-300 text-sm md:text-base" />
+										<FiCode className="text-indigo-200 group-hover:text-white group-hover:rotate-12 group-hover:scale-125 transition-all duration-300 text-sm md:text-base" />
 										<span className="group-hover:translate-x-1 transition-transform duration-200">Kode</span>
 									</div>
 								</th>
 								<th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-semibold tracking-wider group hover:bg-indigo-700 transition-colors duration-200">
 									<div className="flex items-center gap-1 md:gap-2">
+										<FiBookOpen className="text-indigo-200 group-hover:text-white group-hover:rotate-12 group-hover:scale-125 transition-all duration-300 text-sm md:text-base" />
+										<span className="group-hover:translate-x-1 transition-transform duration-200">Mata Kuliah</span>
+									</div>
+								</th>
+								<th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-semibold tracking-wider group hover:bg-indigo-700 transition-colors duration-200">
+									<div className="flex items-center gap-1 md:gap-2">
 										<FiLayers className="text-indigo-200 group-hover:text-white group-hover:rotate-12 group-hover:scale-125 transition-all duration-300 text-sm md:text-base" />
-										<span className="group-hover:translate-x-1 transition-transform duration-200">Nama Program Studi</span>
-									</div>
-								</th>
-								<th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-semibold tracking-wider group hover:bg-indigo-700 transition-colors duration-200">
-									<div className="flex items-center gap-1 md:gap-2">
-										<FiTrendingUp className="text-indigo-200 group-hover:text-white group-hover:rotate-12 group-hover:scale-125 transition-all duration-300 text-sm md:text-base" />
-										<span className="group-hover:translate-x-1 transition-transform duration-200">Nama Singkat</span>
+										<span className="group-hover:translate-x-1 transition-transform duration-200">Kelas</span>
 									</div>
 								</th>
 								<th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-semibold tracking-wider group">
 									<div className="flex items-center gap-1 md:gap-2">
-										<FiUser className="text-indigo-200 group-hover:text-white group-hover:scale-125 transition-all duration-300 bounce-hover text-sm md:text-base" />
-										<span className="group-hover:translate-x-1 transition-transform duration-200">Ketua</span>
+										<FiUser className="text-indigo-200 group-hover:text-white group-hover:scale-125 transition-all duration-300 text-sm md:text-base" />
+										<span className="group-hover:translate-x-1 transition-transform duration-200">Pengajar</span>
 									</div>
 								</th>
 								<th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-semibold tracking-wider group hover:bg-indigo-700 transition-colors duration-200">
 									<div className="flex items-center gap-1 md:gap-2">
-										<FiMapPin className="text-indigo-200 group-hover:text-white group-hover:scale-125 transition-all duration-300 text-sm md:text-base" />
-										<span className="group-hover:translate-x-1 transition-transform duration-200">Fakultas</span>
+										<FiCalendar className="text-indigo-200 group-hover:text-white group-hover:scale-125 transition-all duration-300 text-sm md:text-base" />
+										<span className="group-hover:translate-x-1 transition-transform duration-200">Jadwal</span>
 									</div>
 								</th>
 								<th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-semibold tracking-wider group">
 									<div className="flex items-center gap-1 md:gap-2">
-										<FiAward className="text-indigo-200 group-hover:text-white group-hover:rotate-12 group-hover:scale-125 transition-all duration-300 text-sm md:text-base" />
-										<span className="group-hover:translate-x-1 transition-transform duration-200">Status</span>
+										<FiUsers className="text-indigo-200 group-hover:text-white group-hover:rotate-12 group-hover:scale-125 transition-all duration-300 text-sm md:text-base" />
+										<span className="group-hover:translate-x-1 transition-transform duration-200">Kapasitas</span>
+									</div>
+								</th>
+								<th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-semibold tracking-wider group">
+									<div className="flex items-center gap-1 md:gap-2">
+										<FiUsers className="text-indigo-200 group-hover:text-white group-hover:scale-125 transition-all duration-300 text-sm md:text-base" />
+										<span className="group-hover:translate-x-1 transition-transform duration-200">Peserta</span>
 									</div>
 								</th>
 								<th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-semibold tracking-wider group">
@@ -265,9 +272,9 @@ export default function Page() {
 							{isLoading ? (
 								Array.from({ length: perPage }).map((_, idx) => <SkeletonRow key={idx} />)
 							) : (
-								data?.data.map((row: ProgramStudiItem, idx: number) => (
+								data?.data.items.map((row: KelasKuliahItem, idx: number) => (
 									<tr
-										key={row.id_sms}
+										key={row.id_kls}
 										className="opacity-0 hover:bg-indigo-50 hover:shadow-lg hover:scale-[1.01] transition-all duration-300 group cursor-pointer border-l-4 border-transparent hover:border-indigo-500 animate-[fadeIn_0.5s_ease-out_forwards]"
 										style={{ animationDelay: `${idx * 0.05}s` } as React.CSSProperties}
 									>
@@ -278,31 +285,28 @@ export default function Page() {
 										</td>
 										<td className="px-3 md:px-6 py-3 md:py-4">
 											<span className="text-xs md:text-sm font-medium text-slate-800 group-hover:text-indigo-700 group-hover:translate-x-2 inline-block transition-all duration-300">
-												{row.nama_prodi}
+												{row.mata_kuliah}
 											</span>
 										</td>
 										<td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm text-slate-600 group-hover:text-slate-800 group-hover:font-medium transition-all duration-200">
-											{row.nama_singkat}
+											{row.nama_kelas}
 										</td>
 										<td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm text-slate-600 group-hover:text-slate-800 transition-colors duration-200">
-											{row.ketua_prodi ?? "-"}
+											{row.pengajar || "-"}
 										</td>
 										<td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm text-slate-600 group-hover:text-slate-800 transition-colors duration-200">
-											{row.fakultas ?? "-"}
+											{row.jadwal_mingguan || "-"}
 										</td>
-										<td className="px-3 md:px-6 py-3 md:py-4">
-											<span className={`inline-flex px-2 md:px-3 py-1 rounded-full text-[10px] md:text-xs font-semibold transition-all duration-300 hover:scale-110 hover:shadow-md ${
-												row.status?.toLowerCase() === 'aktif'
-													? 'bg-green-100 text-green-700 border-2 border-green-300 hover:bg-green-200 hover:border-green-400'
-													: 'bg-slate-100 text-slate-600 border-2 border-slate-300 hover:bg-slate-200 hover:border-slate-400'
-											}`}>
-												{row.status ?? "-"}
-											</span>
+										<td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm text-slate-600 group-hover:text-slate-800 transition-colors duration-200">
+											{row.kapasitas}
+										</td>
+										<td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm text-slate-600 group-hover:text-slate-800 transition-colors duration-200">
+											{row.peserta}
 										</td>
 										<td className="px-3 md:px-6 py-3 md:py-4 text-right">
 											<div className="inline-flex items-center gap-2">
 												<Link
-													href={` /siakad/admin/prodi/${row.id_sms}`.trim()}
+													href={`/siakad/admin/kelas-kuliah/${row.id_kls}`}
 													className="inline-flex items-center justify-center p-2 bg-white border-2 border-slate-200 text-slate-600 rounded-lg hover:bg-indigo-50 hover:border-indigo-300 hover:text-indigo-600 transition-all duration-200"
 													title="Detail"
 												>
@@ -310,8 +314,8 @@ export default function Page() {
 												</Link>
 												<button
 													onClick={() => {
-														if (confirm('Hapus program studi ini?')) {
-															console.log('delete', row.id_sms);
+														if (confirm('Hapus kelas kuliah ini?')) {
+															console.log('delete', row.id_kls);
 															// TODO: panggil API delete di sini
 														}
 													}}
@@ -330,13 +334,13 @@ export default function Page() {
 				</div>
 
 				{/* Pagination */}
-				{data?.pagination && !isLoading && (
+				{data?.data && !isLoading && (
 					<div className="px-3 md:px-6 py-4 md:py-5 bg-slate-50 border-t border-slate-200">
 						<div className="flex flex-col sm:flex-row flex-wrap items-center justify-between gap-3 md:gap-4">
 							<div className="text-xs md:text-sm text-slate-600 font-medium hover:text-indigo-600 transition-colors duration-200 cursor-default text-center sm:text-left">
-								Halaman <span className="text-indigo-600 font-bold px-1.5 md:px-2 py-0.5 md:py-1 bg-indigo-50 rounded-lg hover:bg-indigo-100 hover:scale-110 inline-block transition-all duration-200">{data.pagination.current_page}</span> dari{" "}
-								<span className="text-indigo-600 font-bold px-1.5 md:px-2 py-0.5 md:py-1 bg-indigo-50 rounded-lg hover:bg-indigo-100 hover:scale-110 inline-block transition-all duration-200">{data.pagination.last_page}</span> — Total:{" "}
-								<span className="text-indigo-600 font-bold px-1.5 md:px-2 py-0.5 md:py-1 bg-indigo-50 rounded-lg hover:bg-indigo-100 hover:scale-110 inline-block transition-all duration-200">{data.pagination.total}</span> data
+								Halaman <span className="text-indigo-600 font-bold px-1.5 md:px-2 py-0.5 md:py-1 bg-indigo-50 rounded-lg hover:bg-indigo-100 hover:scale-110 inline-block transition-all duration-200">{data.data.meta.current_page}</span> dari{" "}
+								<span className="text-indigo-600 font-bold px-1.5 md:px-2 py-0.5 md:py-1 bg-indigo-50 rounded-lg hover:bg-indigo-100 hover:scale-110 inline-block transition-all duration-200">{data.data.meta.last_page}</span> — Total:{" "}
+								<span className="text-indigo-600 font-bold px-1.5 md:px-2 py-0.5 md:py-1 bg-indigo-50 rounded-lg hover:bg-indigo-100 hover:scale-110 inline-block transition-all duration-200">{data.data.meta.total}</span> data
 							</div>
 
 							<div className="flex items-center gap-1.5 md:gap-2">
@@ -350,8 +354,8 @@ export default function Page() {
 								</button>
 
 								{/* Page Numbers */}
-								{Array.from({ length: data.pagination.last_page }, (_, i) => i + 1)
-									.slice(Math.max(0, page - 2), Math.min(data.pagination.last_page, page + 1))
+								{Array.from({ length: data.data.meta.last_page }, (_, i) => i + 1)
+									.slice(Math.max(0, page - 2), Math.min(data.data.meta.last_page, page + 1))
 									.map((p) => (
 										<button
 											key={p}
@@ -368,8 +372,8 @@ export default function Page() {
 
 								{/* Next Button */}
 								<button
-									onClick={() => setPage((p) => Math.min(data.pagination.last_page, p + 1))}
-									disabled={page >= data.pagination.last_page}
+									onClick={() => setPage((p) => Math.min(data.data.meta.last_page, p + 1))}
+									disabled={page >= data.data.meta.last_page}
 									className="p-1.5 md:p-2 rounded-lg bg-white border-2 border-slate-200 text-slate-600 hover:border-indigo-500 hover:text-indigo-600 hover:shadow-xl hover:scale-110 hover:translate-x-1 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-slate-200 disabled:hover:text-slate-600 disabled:hover:scale-100 disabled:hover:translate-x-0 transition-all duration-300 pulse-glow active:scale-95"
 								>
 									<FiChevronRight className="text-lg md:text-xl" />
@@ -382,4 +386,3 @@ export default function Page() {
 		</div>
 	);
 }
-

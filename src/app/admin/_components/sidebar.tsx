@@ -62,7 +62,7 @@ const menuItems: MenuItem[] = [
 					},
 					{
 						label: "List Program Studi",
-						path: "/admin/list-prodi",
+						path: "/admin/list-prod",
 						icon: "book-open",
 					},
 					{
@@ -141,7 +141,7 @@ const menuItems: MenuItem[] = [
 			},
 			{
 				label: "List Kelas Kuliah",
-				path: "/admin/list-kls",
+				path: "/admin/list-klskul",
 				icon: "book",
 			},
 			{

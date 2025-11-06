@@ -1,39 +1,33 @@
 // =========================
-// src/lib/services/prodi/fetchAllProdi.ts
+// src/lib/services/perkuliahan/klskul/fetchAllKlskul.ts
 // =========================
+// Service to fetch kelas kuliah data from the internal proxy route
+// Mirrors structure and behavior of fetchAllMk.ts
 // =========================
-// Imports
-// =========================
-import type { ProgramStudiResponse } from "@/lib/services/data-kampus/pendidikan-tinggi/prod/type";
+import type { KelasKuliahResponse } from "@/lib/services/perkuliahan/klskul/type";
 import { buildApiUrl } from "@/lib/util/basePathConfigure";
 
 // =========================
 // Constants
 // =========================
-const API_ENDPOINT = buildApiUrl("/api/prodi");
+const API_ENDPOINT = buildApiUrl("/api/perkuliahan/klskul");
 
 // =========================
 // Request Cache for Deduplication
 // =========================
-// Cache ongoing requests by full URL to avoid duplicate network calls
-const requestCache = new Map<string, Promise<ProgramStudiResponse>>();
+const requestCache = new Map<string, Promise<KelasKuliahResponse>>();
 
 // =========================
 // Service Function
 // =========================
 /**
- * Fetch all program studi from internal route `/api/prodi`.
+ * Fetch all kelas kuliah from internal route `/api/perkuliahan/klskul`.
  * Accepts optional params: page, per_page, q
- * Returns ProgramStudiResponse which will be consumed by callers.
- *
- * Implementation notes:
- * - Uses a simple request deduplication cache (Map) so concurrent calls for the same
- *   URL share the same promise.
- * - Cleans the cache entry after 30 seconds to avoid unbounded memory growth.
+ * Returns KelasKuliahResponse which will be consumed by callers.
  */
-export const fetchAllProdi = async (
+export const fetchAllKlskul = async (
   params?: { page?: number; per_page?: number; q?: string }
-): Promise<ProgramStudiResponse> => {
+): Promise<KelasKuliahResponse> => {
   try {
     // 1. Build URL with query parameters
     let url = API_ENDPOINT;
@@ -54,7 +48,7 @@ export const fetchAllProdi = async (
     }
 
     // 3. Create request promise and store in cache
-    const requestPromise = (async (): Promise<ProgramStudiResponse> => {
+    const requestPromise = (async (): Promise<KelasKuliahResponse> => {
       const res = await fetch(url, {
         method: "GET",
         headers: {
@@ -64,14 +58,21 @@ export const fetchAllProdi = async (
         cache: "no-store",
       });
 
-      const responseData = await res.json();
+      // Defensive parse: read text then JSON.parse to give clearer errors on HTML responses
+      const text = await res.text();
+      let responseData: any;
+      try {
+        responseData = text ? JSON.parse(text) : {};
+      } catch (err) {
+        const snippet = text ? text.slice(0, 200) : "";
+        throw new Error(`Invalid JSON response from ${url}: ${snippet}`);
+      }
 
       if (!res.ok) {
-        // Keep behavior consistent with previous implementation (throw on non-OK)
         throw new Error(responseData?.message || `HTTP error! status: ${res.status}`);
       }
 
-      return responseData as ProgramStudiResponse;
+      return responseData as KelasKuliahResponse;
     })();
 
     requestCache.set(url, requestPromise);
@@ -82,7 +83,7 @@ export const fetchAllProdi = async (
     // 5. Return the result
     return await requestPromise;
   } catch (error) {
-    console.error("fetchAllProdi error:", error);
+    console.error("fetchAllKlskul error:", error);
     throw error;
   }
 };
