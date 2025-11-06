@@ -39,7 +39,10 @@ export const useGetAllFak = (
       // fetchAllFak will throw on non-ok responses, so just return the response
       return response;
     },
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 5 * 60 * 1000, // 5 minutes - data dianggap fresh selama 5 menit, tidak fetch ulang
+    gcTime: 10 * 60 * 1000, // 10 minutes - cache disimpan 10 menit setelah unused
+    refetchOnWindowFocus: false, // Tidak refetch saat user kembali ke tab
+    refetchOnMount: false, // Tidak refetch jika data masih fresh
     ...options,
   });
 };

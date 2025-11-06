@@ -18,7 +18,7 @@ export interface Pagination {
 
 export interface ProgramStudiResponse {
   status: string;
-  unit_aktif: any | null;
+  unit_aktif: unknown | null;
   jenjang_aktif: {
     id_jenj_didik: string;
     nm_jenj_didik: string;

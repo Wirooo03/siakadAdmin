@@ -1,33 +1,39 @@
 // =========================
-// src/lib/services/perkuliahan/klskul/fetchAllKlskul.ts
+// src/lib/services/data-kampus/gedung/fetchAllGedung.ts
 // =========================
-// Service to fetch kelas kuliah data from the internal proxy route
-// Mirrors structure and behavior of fetchAllMk.ts
+// Service to fetch gedung data from the internal proxy route
+// Mirrors structure and behavior of fetchAllFak.ts
 // =========================
-import type { KelasKuliahResponse } from "@/lib/services/perkuliahan/klskul/type";
+import type { GedungResponse } from "@/lib/services/data-kampus/gedung/type";
 import { buildApiUrl } from "@/lib/util/basePathConfigure";
 
 // =========================
 // Constants
 // =========================
-const API_ENDPOINT = buildApiUrl("/api/perkuliahan/klskul");
+const API_ENDPOINT = buildApiUrl("/api/data-kampus/gedung");
 
 // =========================
 // Request Cache for Deduplication
 // =========================
-const requestCache = new Map<string, Promise<KelasKuliahResponse>>();
+// Cache ongoing requests by full URL to avoid duplicate network calls
+const requestCache = new Map<string, Promise<GedungResponse>>();
 
 // =========================
 // Service Function
 // =========================
 /**
- * Fetch all kelas kuliah from internal route `/api/perkuliahan/klskul`.
+ * Fetch all gedung from internal route `/api/data-kampus/gedung`.
  * Accepts optional params: page, per_page, q
- * Returns KelasKuliahResponse which will be consumed by callers.
+ * Returns GedungResponse which will be consumed by callers.
+ *
+ * Implementation notes:
+ * - Uses a simple request deduplication cache (Map) so concurrent calls for the same
+ *   URL share the same promise.
+ * - Cleans the cache entry after 30 seconds to avoid unbounded memory growth.
  */
-export const fetchAllKlskul = async (
+export const fetchAllGedung = async (
   params?: { page?: number; per_page?: number; q?: string }
-): Promise<KelasKuliahResponse> => {
+): Promise<GedungResponse> => {
   try {
     // 1. Build URL with query parameters
     let url = API_ENDPOINT;
@@ -48,7 +54,7 @@ export const fetchAllKlskul = async (
     }
 
     // 3. Create request promise and store in cache
-    const requestPromise = (async (): Promise<KelasKuliahResponse> => {
+    const requestPromise = (async (): Promise<GedungResponse> => {
       const res = await fetch(url, {
         method: "GET",
         headers: {
@@ -58,7 +64,9 @@ export const fetchAllKlskul = async (
         cache: "no-store",
       });
 
-      // Defensive parse: read text then JSON.parse to give clearer errors on HTML responses
+      // Parse response defensively: if server returns HTML (e.g. error page)
+      // parsing as JSON will throw 'Unexpected token <'. Read as text then
+      // attempt JSON.parse to provide clearer errors.
       const text = await res.text();
       let responseData: unknown;
       try {
@@ -69,10 +77,11 @@ export const fetchAllKlskul = async (
       }
 
       if (!res.ok) {
+        // Keep behavior consistent with previous implementation (throw on non-OK)
         throw new Error((responseData as { message?: string })?.message || `HTTP error! status: ${res.status}`);
       }
 
-      return responseData as KelasKuliahResponse;
+      return responseData as GedungResponse;
     })();
 
     requestCache.set(url, requestPromise);
@@ -83,7 +92,7 @@ export const fetchAllKlskul = async (
     // 5. Return the result
     return await requestPromise;
   } catch (error) {
-    console.error("fetchAllKlskul error:", error);
+    console.error("fetchAllGedung error:", error);
     throw error;
   }
 };

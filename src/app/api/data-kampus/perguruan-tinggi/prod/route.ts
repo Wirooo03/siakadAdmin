@@ -42,7 +42,7 @@ async function fetchExternalProgramStudi(url: string): Promise<ProgramStudiRespo
   if (!res.ok) {
     // Throw to let caller handle logging/response
     const message = data?.message || `HTTP error! status: ${res.status}`;
-    const err: any = new Error(message);
+    const err = new Error(message) as Error & { status?: number; payload?: unknown };
     err.status = res.status;
     err.payload = data;
     throw err;
@@ -76,10 +76,11 @@ export async function GET(request: Request | NextRequest) {
     const data = await fetchExternalProgramStudi(target);
 
     return NextResponse.json(data);
-  } catch (err: any) {
+  } catch (err) {
     console.error("/api/prodi error:", err);
-    const status = err?.status || 500;
-    const msg = err?.message || String(err);
+    const error = err as Error & { status?: number };
+    const status = error?.status || 500;
+    const msg = error?.message || String(err);
     return errorResponse(msg, status);
   }
 }
