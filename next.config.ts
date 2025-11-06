@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  env: {
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL, // URL API yang digunakan oleh aplikasi
+  },
+  basePath: process.env.NEXT_PUBLIC_BASEPATH || '',
   reactCompiler: true,
 };
 

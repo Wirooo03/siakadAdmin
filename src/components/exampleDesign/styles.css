@@ -1,0 +1,365 @@
+/* Design System Container */
+.design-system-container {
+  padding: 24px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* Page Header */
+.page-header {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Component Cards */
+.component-card {
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.component-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Stat Cards */
+.stat-card {
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #f0f0f0;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: #1890ff;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.slide-up {
+  animation: slideUp 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+/* Stagger animation for multiple cards */
+.slide-up:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.slide-up:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.slide-up:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.slide-up:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.slide-up:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.slide-up:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+.slide-up:nth-child(7) {
+  animation-delay: 0.7s;
+}
+
+.slide-up:nth-child(8) {
+  animation-delay: 0.8s;
+}
+
+/* Table Enhancements */
+.ant-table-wrapper {
+  animation: scaleIn 0.4s ease-out;
+}
+
+.ant-table-row {
+  transition: all 0.3s ease;
+}
+
+.ant-table-row:hover {
+  background: #e6f7ff !important;
+  transform: scale(1.01);
+}
+
+/* Button Enhancements */
+.ant-btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ant-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+}
+
+.ant-btn:active {
+  transform: translateY(0);
+}
+
+/* Card Hover Effect */
+.ant-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Form Items */
+.ant-form-item {
+  margin-bottom: 20px;
+}
+
+/* Tag Animations */
+.ant-tag {
+  transition: all 0.3s ease;
+}
+
+.ant-tag:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Progress Bar Animation */
+.ant-progress-line {
+  animation: slideUp 0.8s ease-out;
+}
+
+/* Modal & Drawer Animations */
+.ant-modal,
+.ant-drawer {
+  animation: scaleIn 0.3s ease-out;
+}
+
+/* Alert Animation */
+.ant-alert {
+  animation: slideUp 0.4s ease-out;
+}
+
+/* Steps Animation */
+.ant-steps-item {
+  transition: all 0.3s ease;
+}
+
+.ant-steps-item:hover {
+  transform: scale(1.02);
+}
+
+/* Statistic Animation */
+.ant-statistic-content {
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Badge Pulse Animation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(24, 144, 255, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(24, 144, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(24, 144, 255, 0);
+  }
+}
+
+.ant-badge-count {
+  animation: pulse 2s infinite;
+}
+
+/* Timeline Animation */
+.ant-timeline-item {
+  animation: slideUp 0.5s ease-out;
+  animation-fill-mode: both;
+}
+
+.ant-timeline-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.ant-timeline-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.ant-timeline-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.ant-timeline-item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+/* Select Dropdown Animation */
+.ant-select-dropdown {
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Float Button Enhancement */
+.ant-float-btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ant-float-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 16px rgba(24, 144, 255, 0.4);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .design-system-container {
+    padding: 16px;
+  }
+
+  .page-header {
+    padding: 16px;
+  }
+
+  .component-card {
+    margin-bottom: 16px;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-2px) scale(1.01);
+  }
+}
+
+/* Loading State */
+.ant-spin-nested-loading {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Segment Control Animation */
+.ant-segmented {
+  transition: all 0.3s ease;
+}
+
+.ant-segmented-item {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ant-segmented-item:hover {
+  transform: scale(1.02);
+}
+
+/* Result Component */
+.ant-result {
+  animation: scaleIn 0.5s ease-out;
+}
+
+/* Empty State */
+.ant-empty {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Descriptions Hover */
+.ant-descriptions-item:hover {
+  background: #fafafa;
+  transition: background 0.3s ease;
+}
+
+/* Collapse Panel Animation */
+.ant-collapse-item {
+  transition: all 0.3s ease;
+}
+
+.ant-collapse-item:hover {
+  background: #fafafa;
+}
+
+/* Transfer Animation */
+.ant-transfer {
+  animation: slideUp 0.5s ease-out;
+}
+
+/* Rate Stars */
+.ant-rate-star {
+  transition: all 0.3s ease;
+}
+
+.ant-rate-star:hover {
+  transform: scale(1.2);
+}
+
+/* Upload Card */
+.ant-upload-list-picture-card-container {
+  transition: all 0.3s ease;
+}
+
+.ant-upload-list-picture-card-container:hover {
+  transform: scale(1.05);
+}
+
+/* Smooth Page Transitions */
+.component-card > .ant-card-body {
+  animation: fadeIn 0.8s ease-out;
+}

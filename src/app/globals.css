@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* SIAKAD brand blue - centralised color values */
+  --siakad-blue: #394e55; /* hex */
 }
 
 @theme inline {
@@ -14,8 +16,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #000000;
   }
 }
 
@@ -23,4 +25,79 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/*
+  Override common Tailwind `indigo-*` utility classes to use the
+  centralized SIAKAD blue. This keeps the UI consistent and lets you
+  update the color from one place (change --siakad-blue).
+
+  Note: these rules are intentionally specific and use !important so
+  they override compiled Tailwind utilities without changing code in
+  many files. If you later add a Tailwind config, you can migrate
+  these into the theme colors instead.
+*/
+.text-indigo-600,
+.group-hover\:text-indigo-600,
+.hover\:text-indigo-600 {
+  color: var(--siakad-blue) !important;
+}
+
+.text-indigo-800 {
+  color: rgba(var(--siakad-blue-rgb), 0.95) !important;
+}
+
+.text-indigo-200,
+.group-hover\:text-indigo-200 {
+  color: rgba(var(--siakad-blue-rgb), 0.85) !important;
+}
+
+.bg-indigo-600,
+.hover\:bg-indigo-600,
+.group-hover\:bg-indigo-600 {
+  background-color: var(--siakad-blue) !important;
+.page-button--selected {
+  /* Strong selected state: solid brand blue with white text for clear contrast */
+  background-color: var(--siakad-blue) !important;
+  color: #ffffff !important;
+  border-color: rgba(var(--siakad-blue-rgb), 1) !important;
+  /* stronger shadow to make the selected page pop */
+  box-shadow: 0 8px 26px rgba(var(--siakad-blue-rgb), 1) !important;
+  transform: translateY(-1px) !important;
+}
+
+.page-button--selected:hover {
+  box-shadow: 0 14px 40px rgba(var(--siakad-blue-rgb), 1) !important;
+  transform: translateY(-2px) !important;
+}
+}
+
+.bg-indigo-50 {
+  background-color: rgba(var(--siakad-blue-rgb), 0.06) !important;
+}
+.bg-indigo-100 {
+  background-color: rgba(var(--siakad-blue-rgb), 0.12) !important;
+}
+
+.hover\:bg-indigo-700,
+.bg-indigo-700 {
+  /* slightly darker for hover states */
+  background-color: rgba(var(--siakad-blue-rgb), 0.9) !important;
+}
+
+.border-indigo-700,
+.border-indigo-800,
+.hover\:border-indigo-700,
+.hover\:border-indigo-800 {
+  border-color: rgba(var(--siakad-blue-rgb), 0.9) !important;
+}
+
+.border-indigo-500,
+.hover\:border-indigo-500 {
+  border-color: var(--siakad-blue) !important;
+}
+
+.pulse-glow:hover {
+  /* If pulse-glow referenced the old indigo glow, keep it consistent */
+  box-shadow: 0 0 20px rgba(var(--siakad-blue-rgb), 0.25) !important;
 }
