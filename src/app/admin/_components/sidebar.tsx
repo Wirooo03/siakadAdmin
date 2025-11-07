@@ -57,7 +57,7 @@ const menuItems: MenuItem[] = [
 				children: [
 					{
 						label: "List Fakultas",
-						path: "/admin/data-kampus/pendidikan-tingi/list-fak",
+						path: "/admin/data-kampus/pendidikan-tinggi/list-fak",
 						icon: "layers",
 					},
 					{
