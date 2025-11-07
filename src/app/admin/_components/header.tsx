@@ -1,7 +1,10 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiX, FiUserCheck } from "react-icons/fi";
+import Image from 'next/image';
+import Link from 'next/link';
+import { withAssetsBasePath } from '@/lib/util/basePathAsset';
 
 interface HeaderProps {
   isSidebarOpen?: boolean;
@@ -119,23 +122,61 @@ export default function Header({ isSidebarOpen = true, onToggle, title }: Header
         visible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <div className="flex items-center">
-        {/* Mobile toggle sits inside the header so it doesn't overlap page content */}
-        {onToggle && (
-          <button
-              onClick={onToggle}
-              aria-label={isSidebarOpen ? "Tutup sidebar" : "Buka sidebar"}
-              title={isSidebarOpen ? "Tutup sidebar" : "Buka sidebar"}
-              className="p-2 mr-3 bg-[var(--siakad-blue)] text-white rounded-md shadow-sm hover:brightness-110 transition-all duration-150"
-            >
-            {isSidebarOpen ? <FiX className="w-5 h-5" /> : <FiMenu className="w-5 h-5" />}
-          </button>
-        )}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          {/* Mobile toggle sits inside the header so it doesn't overlap page content */}
+          {onToggle && (
+            <button
+                onClick={onToggle}
+                aria-label={isSidebarOpen ? "Tutup sidebar" : "Buka sidebar"}
+                title={isSidebarOpen ? "Tutup sidebar" : "Buka sidebar"}
+                className="p-2 bg-[var(--siakad-blue)] text-white rounded-md shadow-sm hover:brightness-110 transition-all duration-150"
+              >
+              {isSidebarOpen ? <FiX className="w-5 h-5" /> : <FiMenu className="w-5 h-5" />}
+            </button>
+          )}
+
+          {/* Logo - clickable and redirects to dashboard */}
+          <Link 
+            href="/admin/dashboard"
+            className="flex items-center gap-2 group hover:scale-105 transition-transform duration-200"
+          >
+            <div className="p-1 bg-transparent rounded-lg flex-shrink-0 flex items-center justify-center" style={{ width: 36, height: 36 }}>
+              <Image
+                src={withAssetsBasePath('/logo-uniman.png')}
+                alt="Uniman Logo"
+                width={32}
+                height={32}
+                className="object-contain"
+              />
+            </div>
+            <div>
+              <h2 className="text-base font-bold text-indigo-600 group-hover:text-indigo-700 transition-colors">
+                SIAKAD
+              </h2>
+            </div>
+          </Link>
+        </div>
 
         {/* Optional title placeholder - when present it won't be overlapped */}
-        <div className="flex-1">
-          {title ? <div className="text-base font-semibold text-slate-700">{title}</div> : null}
+        <div className="flex-1 px-3">
+          {title ? <div className="text-sm font-semibold text-slate-700 text-center">{title}</div> : null}
         </div>
+
+        {/* Profile button */}
+        <Link
+          href="/admin/profile"
+          className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-indigo-50 transition-all duration-300 group hover:scale-105 active:scale-95"
+        >
+          <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform duration-300 flex-shrink-0">
+            <FiUserCheck className="text-white text-sm" />
+          </div>
+          <div className="hidden sm:block">
+            <p className="text-xs font-semibold text-slate-700 group-hover:text-indigo-700 transition-colors truncate">
+              Admin
+            </p>
+          </div>
+        </Link>
       </div>
     </header>
   );
