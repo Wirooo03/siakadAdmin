@@ -68,17 +68,17 @@ export const fetchAllFak = async (
       // parsing as JSON will throw 'Unexpected token <'. Read as text then
       // attempt JSON.parse to provide clearer errors.
       const text = await res.text();
-      let responseData: any;
+      let responseData: unknown;
       try {
         responseData = text ? JSON.parse(text) : {};
-      } catch (err) {
+      } catch {
         const snippet = text ? text.slice(0, 200) : "";
         throw new Error(`Invalid JSON response from ${url}: ${snippet}`);
       }
 
       if (!res.ok) {
         // Keep behavior consistent with previous implementation (throw on non-OK)
-        throw new Error(responseData?.message || `HTTP error! status: ${res.status}`);
+        throw new Error((responseData as { message?: string })?.message || `HTTP error! status: ${res.status}`);
       }
 
       return responseData as FakultasResponse;

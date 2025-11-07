@@ -23,21 +23,21 @@ async function fetchExternalFakultas(url: string): Promise<FakultasResponse> {
   // which would cause res.json() to throw 'Unexpected token <'. Read as text
   // first and try JSON.parse so we can provide a clearer error payload.
   const text = await res.text();
-  let data: any;
+  let data: unknown;
   try {
     data = text ? JSON.parse(text) : {};
-  } catch (parseErr) {
+  } catch {
     const snippet = text ? text.slice(0, 1000) : "";
     const message = `Upstream returned non-JSON response (first 200 chars): ${snippet.slice(0,200)}`;
-    const err: any = new Error(message);
+    const err = new Error(message) as Error & { status?: number; payload?: unknown };
     err.status = res.status;
     err.payload = { raw: snippet };
     throw err;
   }
 
   if (!res.ok) {
-    const message = data?.message || `HTTP error! status: ${res.status}`;
-    const err: any = new Error(message);
+    const message = (data as { message?: string })?.message || `HTTP error! status: ${res.status}`;
+    const err = new Error(message) as Error & { status?: number; payload?: unknown };
     err.status = res.status;
     err.payload = data;
     throw err;
@@ -61,10 +61,11 @@ export async function GET(request: Request | NextRequest) {
     const data = await fetchExternalFakultas(target);
 
     return NextResponse.json(data);
-  } catch (err: any) {
+  } catch (err) {
     console.error("/api/data-kampus/perguruan-tinggi/fak error:", err);
-    const status = err?.status || 500;
-    const msg = err?.message || String(err);
+    const error = err as Error & { status?: number };
+    const status = error?.status || 500;
+    const msg = error?.message || String(err);
     return errorResponse(msg, status);
   }
 }

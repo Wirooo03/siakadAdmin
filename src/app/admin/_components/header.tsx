@@ -90,7 +90,7 @@ export default function Header({ isSidebarOpen = true, onToggle, title }: Header
           scrollTargets.add(el);
         }
       });
-    } catch (e) {
+    } catch {
       // If the DOM is restricted for some reason, ignore and continue with window/main
     }
 
@@ -108,7 +108,7 @@ export default function Header({ isSidebarOpen = true, onToggle, title }: Header
       handlers.forEach((listener, t) => {
         try {
           t.removeEventListener("scroll", listener as EventListener);
-        } catch (e) {
+        } catch {
           // ignore
         }
       });

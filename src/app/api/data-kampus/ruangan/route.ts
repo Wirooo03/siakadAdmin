@@ -1,25 +1,26 @@
-// Proxy route for mata kuliah data from external service
+// Proxy route for ruangan data from external SIAKAD service
 import { NextResponse, type NextRequest } from "next/server";
-import type { MataKuliahResponse } from "@/lib/services/perkuliahan/mk/type";
+import type { RuanganResponse } from "@/lib/services/data-kampus/ruangan/type";
 
-// External base URL. Prefer server env SIAKAD_URL, fallback to NEXT_PUBLIC_API_URL
+// External SIAKAD base URL. Prefer server env SIAKAD_URL, fallback to NEXT_PUBLIC_API_URL
 const SIAKAD_URL = process.env.SIAKAD_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "";
 
 function buildTargetUrl(request: Request | NextRequest): string {
   const incoming = new URL(request.url);
   const qs = incoming.search || ""; // includes leading '?'
 
-  return `${SIAKAD_URL.replace(/\/$/, "")}/api/v1/data-mata-kuliah${qs}`;
+  return `${SIAKAD_URL.replace(/\/$/, "")}/api/v1/ref/ruang-kuliah${qs}`;
 }
 
-async function fetchExternalMataKuliah(url: string): Promise<MataKuliahResponse> {
+async function fetchExternalRuangan(url: string): Promise<RuanganResponse> {
   const res = await fetch(url, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
 
-  // Defensive parsing: upstream may return HTML (e.g. 404 page) which would
-  // cause res.json() to throw 'Unexpected token <'. Read as text and parse.
+  // Defensive parsing: upstream may return an HTML error page (starts with '<')
+  // which would cause res.json() to throw 'Unexpected token <'. Read as text
+  // first and try JSON.parse so we can provide a clearer error payload.
   const text = await res.text();
   let data: unknown;
   try {
@@ -41,7 +42,7 @@ async function fetchExternalMataKuliah(url: string): Promise<MataKuliahResponse>
     throw err;
   }
 
-  return data as MataKuliahResponse;
+  return data as RuanganResponse;
 }
 
 function errorResponse(message: string, status = 500) {
@@ -56,11 +57,11 @@ export async function GET(request: Request | NextRequest) {
 
     const target = buildTargetUrl(request);
 
-    const data = await fetchExternalMataKuliah(target);
+    const data = await fetchExternalRuangan(target);
 
     return NextResponse.json(data);
   } catch (err) {
-    console.error("/api/perkuliahan/mk error:", err);
+    console.error("/api/data-kampus/ruangan error:", err);
     const error = err as Error & { status?: number };
     const status = error?.status || 500;
     const msg = error?.message || String(err);

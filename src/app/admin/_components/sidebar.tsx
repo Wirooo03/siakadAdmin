@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 import {
 	FiHome,
 	FiChevronDown,
-	FiChevronRight,
 	FiLayers,
 	FiBook,
 	FiUsers,
@@ -24,8 +23,6 @@ import {
 	FiTag,
 	FiList,
 	FiUserCheck,
-	FiMenu,
-	FiX,
 } from "react-icons/fi";
 
 interface MenuItem {
@@ -203,7 +200,11 @@ export default function Sidebar({ isSidebarOpen = true, onToggle, onClose }: Sid
 			const target = e.target as Node;
 			if (isSidebarOpen && el && !el.contains(target)) {
 				// call onClose if provided, otherwise call onToggle to collapse
-				onClose ? onClose() : onToggle?.();
+				if (onClose) {
+					onClose();
+				} else {
+					onToggle?.();
+				}
 			}
 		};
 
