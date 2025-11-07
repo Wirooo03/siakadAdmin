@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useKlskulTable } from "@/lib/hooks/data-kampus/perkuliahan/kls-kul/useKlskulTable";
+import { useKlskulTable } from "@/lib/hooks/perkuliahan/klskul/useKlskulTable";
 import type { KelasKuliahItem } from "@/lib/services/perkuliahan/klskul/type";
 
 import Link from 'next/link';
