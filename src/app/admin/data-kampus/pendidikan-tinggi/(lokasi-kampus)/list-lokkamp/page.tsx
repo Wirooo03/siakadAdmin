@@ -1,7 +1,7 @@
 "use client";
 
-import { useLokasiKampusTable } from "@/lib/hooks/data-kampus/lokasi-kampus/useLokasiKampusTable";
-import type { LokasiKampusItem } from "@/lib/services/data-kampus/lokasi-kampus/type";
+import { useLokasiKampusTable } from "@/lib/hooks/data-kampus/perguruan-tinggi/lokasi-kampus/useLokasiKampusTable";
+import type { LokasiKampusItem } from "@/lib/services/data-kampus/pendidikan-tinggi/lokasi-kampus/type";
 
 import Link from 'next/link';
 import { 

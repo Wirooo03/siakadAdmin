@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useRuanganTable } from "@/lib/hooks/data-kampus/ruangan/useRuanganTable";
-import type { RuanganItem } from "@/lib/services/data-kampus/ruangan/type";
+import { useRuanganTable } from "@/lib/hooks/data-kampus/perguruan-tinggi/ruangan/useRuanganTable";
+import type { RuanganItem } from "@/lib/services/data-kampus/pendidikan-tinggi/ruangan/type";
 
 import Link from 'next/link';
 import { 

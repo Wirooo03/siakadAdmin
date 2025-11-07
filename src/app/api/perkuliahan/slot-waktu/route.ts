@@ -1,6 +1,6 @@
 // Proxy route for slot waktu data from external SIAKAD service
 import { NextResponse, type NextRequest } from "next/server";
-import type { SlotWaktuResponse } from "@/lib/services/perkuliahan/slot-waktu/type";
+import type { SlotWaktuResponse } from "@/lib/services/data-kampus/pendidikan-tinggi/slot-waktu/type";
 
 // External SIAKAD base URL. Prefer server env SIAKAD_URL, fallback to NEXT_PUBLIC_API_URL
 const SIAKAD_URL = process.env.SIAKAD_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "";

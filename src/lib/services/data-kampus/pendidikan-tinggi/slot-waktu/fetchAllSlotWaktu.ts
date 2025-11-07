@@ -1,36 +1,36 @@
 // =========================
-// src/lib/services/perkuliahan/jenjang-pendidikan/fetchAllJenjangPendidikan.ts
+// src/lib/services/perkuliahan/slot-waktu/fetchAllSlotWaktu.ts
 // =========================
-// Service to fetch jenjang pendidikan data from the internal proxy route
-// Mirrors structure and behavior of fetchAllLokasiKampus.ts (flat array)
+// Service to fetch slot waktu data from the internal proxy route
+// Mirrors structure and behavior of fetchAllFak.ts (flat array response)
 // =========================
-import type { JenjangPendidikanResponse } from "@/lib/services/perkuliahan/jenjang-pendidikan/type";
+import type { SlotWaktuResponse } from "@/lib/services/data-kampus/pendidikan-tinggi/slot-waktu/type";
 import { buildApiUrl } from "@/lib/util/basePathConfigure";
 
 // =========================
 // Constants
 // =========================
-const API_ENDPOINT = buildApiUrl("/api/perkuliahan/jenjang-pendidikan");
+const API_ENDPOINT = buildApiUrl("/api/perkuliahan/slot-waktu");
 
 // =========================
 // Request Cache for Deduplication
 // =========================
 // Cache ongoing requests by full URL to avoid duplicate network calls
-const requestCache = new Map<string, Promise<JenjangPendidikanResponse>>();
+const requestCache = new Map<string, Promise<SlotWaktuResponse>>();
 
 // =========================
 // Service Function
 // =========================
 /**
- * Fetch all jenjang pendidikan from internal route `/api/perkuliahan/jenjang-pendidikan`.
- * Returns JenjangPendidikanResponse which will be consumed by callers.
+ * Fetch all slot waktu from internal route `/api/perkuliahan/slot-waktu`.
+ * Returns SlotWaktuResponse which will be consumed by callers.
  *
  * Implementation notes:
  * - Uses a simple request deduplication cache (Map) so concurrent calls for the same
  *   URL share the same promise.
  * - Cleans the cache entry after 30 seconds to avoid unbounded memory growth.
  */
-export const fetchAllJenjangPendidikan = async (): Promise<JenjangPendidikanResponse> => {
+export const fetchAllSlotWaktu = async (): Promise<SlotWaktuResponse> => {
   try {
     const url = API_ENDPOINT;
 
@@ -40,7 +40,7 @@ export const fetchAllJenjangPendidikan = async (): Promise<JenjangPendidikanResp
     }
 
     // 2. Create request promise and store in cache
-    const requestPromise = (async (): Promise<JenjangPendidikanResponse> => {
+    const requestPromise = (async (): Promise<SlotWaktuResponse> => {
       const res = await fetch(url, {
         method: "GET",
         headers: {
@@ -67,7 +67,7 @@ export const fetchAllJenjangPendidikan = async (): Promise<JenjangPendidikanResp
         throw new Error((responseData as { message?: string })?.message || `HTTP error! status: ${res.status}`);
       }
 
-      return responseData as JenjangPendidikanResponse;
+      return responseData as SlotWaktuResponse;
     })();
 
     requestCache.set(url, requestPromise);
@@ -78,7 +78,7 @@ export const fetchAllJenjangPendidikan = async (): Promise<JenjangPendidikanResp
     // 4. Return the result
     return await requestPromise;
   } catch (error) {
-    console.error("fetchAllJenjangPendidikan error:", error);
+    console.error("fetchAllSlotWaktu error:", error);
     throw error;
   }
 };

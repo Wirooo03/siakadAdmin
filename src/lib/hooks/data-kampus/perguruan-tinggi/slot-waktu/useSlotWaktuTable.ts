@@ -6,8 +6,8 @@ import {
   UseQueryOptions,
 } from "@tanstack/react-query";
 
-import { fetchAllSlotWaktu } from "@/lib/services/perkuliahan/slot-waktu/fetchAllSlotWaktu";
-import type { SlotWaktuResponse } from "@/lib/services/perkuliahan/slot-waktu/type";
+import { fetchAllSlotWaktu } from "@/lib/services/data-kampus/pendidikan-tinggi/slot-waktu/fetchAllSlotWaktu";
+import type { SlotWaktuResponse } from "@/lib/services/data-kampus/pendidikan-tinggi/slot-waktu/type";
 
 // =========================
 // Query Keys

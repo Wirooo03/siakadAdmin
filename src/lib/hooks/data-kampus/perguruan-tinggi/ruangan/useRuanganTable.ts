@@ -6,8 +6,8 @@ import {
   UseQueryOptions,
 } from "@tanstack/react-query";
 
-import { fetchAllRuangan } from "@/lib/services/data-kampus/ruangan/fetchAllRuangan";
-import type { RuanganResponse } from "@/lib/services/data-kampus/ruangan/type";
+import { fetchAllRuangan } from "@/lib/services/data-kampus/pendidikan-tinggi/ruangan/fetchAllRuangan";
+import type { RuanganResponse } from "@/lib/services/data-kampus/pendidikan-tinggi/ruangan/type";
 
 // =========================
 // Query Keys

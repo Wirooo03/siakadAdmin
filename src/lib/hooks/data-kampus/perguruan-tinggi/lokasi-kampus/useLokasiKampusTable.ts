@@ -6,8 +6,8 @@ import {
   UseQueryOptions,
 } from "@tanstack/react-query";
 
-import { fetchAllLokasiKampus } from "@/lib/services/data-kampus/lokasi-kampus/fetchAllLokasiKampus";
-import type { LokasiKampusResponse } from "@/lib/services/data-kampus/lokasi-kampus/type";
+import { fetchAllLokasiKampus } from "@/lib/services/data-kampus/pendidikan-tinggi/lokasi-kampus/fetchAllLokasiKampus";
+import type { LokasiKampusResponse } from "@/lib/services/data-kampus/pendidikan-tinggi/lokasi-kampus/type";
 
 // =========================
 // Query Keys
