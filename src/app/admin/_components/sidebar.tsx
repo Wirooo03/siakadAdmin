@@ -54,32 +54,32 @@ const menuItems: MenuItem[] = [
 				children: [
 					{
 						label: "List Fakultas",
-						path: "/admin/list-fak",
+						path: "/admin/data-kampus/pendidikan-tinggi/list-fak",
 						icon: "layers",
 					},
 					{
 						label: "List Program Studi",
-						path: "/admin/list-prod",
+						path: "/admin/data-kampus/pendidikan-tinggi/list-prod",
 						icon: "book-open",
 					},
 					{
 						label: "List Lokasi Kampus",
-						path: "/admin/list-lokkamp",
+						path: "/admin/data-kampus/pendidikan-tinggi/list-lokkamp",
 						icon: "map-pin",
 					},
 					{
 						label: "List Gedung",
-						path: "/admin/list-gedung",
+						path: "/admin/data-kampus/pendidikan-tinggi/list-gedung",
 						icon: "box",
 					},
 					{
 						label: "List Ruangan",
-						path: "/admin/list-ruang",
+						path: "/admin/data-kampus/pendidikan-tinggi/list-ruang",
 						icon: "door-open",
 					},
 					{
 						label: "List Slot Waktu",
-						path: "/admin/list-slotwaktu",
+						path: "/admin/data-kampus/pendidikan-tinggi/list-slotwaktu",
 						icon: "clock",
 					},
 				],
@@ -90,37 +90,37 @@ const menuItems: MenuItem[] = [
 				children: [
 					{
 						label: "Periode Akademik",
-						path: "/admin/list-perakad",
+						path: "/admin/data-kampus/data-kuliah/list-perakad",
 						icon: "calendar",
 					},
 					{
 						label: "Tahun Ajaran",
-						path: "/admin/list-thajar",
+						path: "/admin/data-kampus/data-kuliah/list-thajar",
 						icon: "calendar",
 					},
 					{
 						label: "Tahun Kurikulum",
-						path: "/admin/list-thkur",
+						path: "/admin/data-kampus/data-kuliah/list-thkur",
 						icon: "clock",
 					},
 					{
 						label: "Jenjang Pendidikan",
-						path: "/admin/list-tkpend",
+						path: "/admin/data-kampus/data-kuliah/list-tkpend",
 						icon: "award",
 					},
 					{
 						label: "Jenis Mata Kuliah",
-						path: "/admin/list-jenismk",
+						path: "/admin/data-kampus/data-kuliah/list-jenismk",
 						icon: "tag",
 					},
 					{
 						label: "Kelompok Mata Kuliah",
-						path: "/admin/list-klpkmk",
+						path: "/admin/data-kampus/data-kuliah/list-klpkmk",
 						icon: "grid",
 					},
 					{
 						label: "Kelas Perkuliahan",
-						path: "/admin/list-klskul",
+						path: "/admin/data-kampus/data-kuliah/list-klskul",
 						icon: "book",
 					},
 				],
@@ -133,22 +133,22 @@ const menuItems: MenuItem[] = [
 		children: [
 			{
 				label: "List Mata Kuliah",
-				path: "/admin/list-mk",
+				path: "/admin/perkuliahan/list-mk",
 				icon: "book-open",
 			},
 			{
 				label: "List Kelas Kuliah",
-				path: "/admin/list-klskul",
+				path: "/admin/perkuliahan/list-klskul",
 				icon: "book",
 			},
 			{
 				label: "Kurikulum Prodi",
-				path: "/admin/create-kurprod",
+				path: "/admin/perkuliahan/create-kurprod",
 				icon: "list",
 			},
 			{
 				label: "Setting Prodi",
-				path: "/admin/setting-prodi",
+				path: "/admin/perkuliahan/setting-prodi",
 				icon: "settings",
 			},
 		],
@@ -159,7 +159,7 @@ const menuItems: MenuItem[] = [
 		children: [
 			{
 				label: "List Mahasiswa",
-				path: "/admin/list-mhs",
+				path: "/admin/portal/list-mhs",
 				icon: "user-check",
 			},
 		],
