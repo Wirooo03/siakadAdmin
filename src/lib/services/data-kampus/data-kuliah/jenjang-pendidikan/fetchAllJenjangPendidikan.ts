@@ -1,5 +1,5 @@
 // =========================
-// src/lib/services/perkuliahan/jenjang-pendidikan/fetchAllJenjangPendidikan.ts
+// src/lib/services/data-kampus/data-kuliah/jenjang-pendidikan/fetchAllJenjangPendidikan.ts
 // =========================
 // Service to fetch jenjang pendidikan data from the internal proxy route
 // Mirrors structure and behavior of fetchAllLokasiKampus.ts (flat array)
@@ -10,7 +10,7 @@ import { buildApiUrl } from "@/lib/util/basePathConfigure";
 // =========================
 // Constants
 // =========================
-const API_ENDPOINT = buildApiUrl("/api/perkuliahan/jenjang-pendidikan");
+const API_ENDPOINT = buildApiUrl("/api/data-kampus/data-kuliah/jenjang-pendidikan");
 
 // =========================
 // Request Cache for Deduplication
@@ -22,7 +22,7 @@ const requestCache = new Map<string, Promise<JenjangPendidikanResponse>>();
 // Service Function
 // =========================
 /**
- * Fetch all jenjang pendidikan from internal route `/api/perkuliahan/jenjang-pendidikan`.
+ * Fetch all jenjang pendidikan from internal route `/api/data-kampus/data-kuliah/jenjang-pendidikan`.
  * Returns JenjangPendidikanResponse which will be consumed by callers.
  *
  * Implementation notes:
