@@ -24,7 +24,7 @@ export default function Page() {
 	const [perPage, setPerPage] = useState<number>(10);
 	const [q, setQ] = useState<string>("");
 
-	const { data, isLoading } = useFakTable({ page, per_page: perPage, q });
+	const { data, isLoading, error } = useFakTable({ page, per_page: perPage, q });
 
 	// Skeleton loader component — mirror actual table responsive columns so layout doesn't shift
 	const SkeletonRow = () => (
@@ -199,7 +199,7 @@ export default function Page() {
 						{/* Add button (right aligned) */}
 						<div className="ml-auto">
 							<Link
-								href="/siakad/admin/create-fak"
+								href="/admin/data-kampus/pendidikan-tinggi/create-fak"
 								className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--siakad-blue)] text-white rounded-lg shadow-md transform transition-all duration-300 will-change-transform hover:scale-105 hover:shadow-xl active:scale-95 focus:outline-none focus:ring-4 focus:ring-indigo-200 pulse-glow"
 							>
 								<FiPlus className="text-base transition-transform duration-300" />

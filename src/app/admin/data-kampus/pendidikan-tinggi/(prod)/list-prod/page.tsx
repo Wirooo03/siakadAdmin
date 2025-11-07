@@ -14,6 +14,7 @@ import {
 	FiBookOpen,
 	FiAward,
 	FiTrendingUp,
+	FiTag,
 	FiMapPin,
 	FiPlus,
 	FiEye,
@@ -25,7 +26,7 @@ export default function Page() {
 	const [perPage, setPerPage] = useState<number>(10);
 	const [q, setQ] = useState<string>("");
 
-	const { data, isLoading } = useProdiTable({ page, per_page: perPage, q });
+	const { data, isLoading, error } = useProdiTable({ page, per_page: perPage, q });
 
 	// Skeleton loader component — mirror actual table responsive columns so layout doesn't shift
 	const SkeletonRow = () => (

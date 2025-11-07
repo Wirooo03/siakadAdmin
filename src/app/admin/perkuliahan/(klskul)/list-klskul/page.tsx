@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useKlskulTable } from "@/lib/hooks/data-kampus/perkuliahan/kls-kul/useKlskulTable";
+import { useKlskulTable } from "@/lib/hooks/perkuliahan/klskul/useKlskulTable";
 import type { KelasKuliahItem } from "@/lib/services/perkuliahan/klskul/type";
 
 import Link from 'next/link';
@@ -25,7 +25,7 @@ export default function Page() {
 	const [perPage, setPerPage] = useState<number>(10);
 	const [q, setQ] = useState<string>("");
 
-	const { data, isLoading } = useKlskulTable({ page, per_page: perPage, q });
+	const { data, isLoading, error } = useKlskulTable({ page, per_page: perPage, q });
 
 	// Skeleton loader component — mirror actual table responsive columns so layout doesn't shift
 	const SkeletonRow = () => (
