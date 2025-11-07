@@ -1,46 +1,60 @@
 // =========================
-// src/lib/services/data-kampus/lokasi-kampus/fetchAllLokasiKampus.ts
+// src/lib/services/data-kampus/ruangan/fetchAllRuangan.ts
 // =========================
-// Service to fetch lokasi kampus data from the internal proxy route
-// Mirrors structure and behavior of fetchAllGedung.ts (flat array response)
+// Service to fetch ruangan data from the internal proxy route
+// Mirrors structure and behavior of fetchAllFak.ts (paginated response)
 // =========================
-import type { LokasiKampusResponse } from "@/lib/services/data-kampus/lokasi-kampus/type";
+import type { RuanganResponse } from "@/lib/services/data-kampus/pendidikan-tinggi/ruangan/type";
 import { buildApiUrl } from "@/lib/util/basePathConfigure";
 
 // =========================
 // Constants
 // =========================
-const API_ENDPOINT = buildApiUrl("/api/data-kampus/lokasi-kampus");
+const API_ENDPOINT = buildApiUrl("/api/data-kampus/ruangan");
 
 // =========================
 // Request Cache for Deduplication
 // =========================
 // Cache ongoing requests by full URL to avoid duplicate network calls
-const requestCache = new Map<string, Promise<LokasiKampusResponse>>();
+const requestCache = new Map<string, Promise<RuanganResponse>>();
 
 // =========================
 // Service Function
 // =========================
 /**
- * Fetch all lokasi kampus from internal route `/api/data-kampus/lokasi-kampus`.
- * Returns LokasiKampusResponse which will be consumed by callers.
+ * Fetch all ruangan from internal route `/api/data-kampus/ruangan`.
+ * Accepts optional params: page, per_page, q
+ * Returns RuanganResponse which will be consumed by callers.
  *
  * Implementation notes:
  * - Uses a simple request deduplication cache (Map) so concurrent calls for the same
  *   URL share the same promise.
  * - Cleans the cache entry after 30 seconds to avoid unbounded memory growth.
  */
-export const fetchAllLokasiKampus = async (): Promise<LokasiKampusResponse> => {
+export const fetchAllRuangan = async (
+  params?: { page?: number; per_page?: number; q?: string }
+): Promise<RuanganResponse> => {
   try {
-    const url = API_ENDPOINT;
+    // 1. Build URL with query parameters
+    let url = API_ENDPOINT;
 
-    // 1. Deduplication: return cached promise if exists
+    if (params) {
+      const searchParams = new URLSearchParams();
+      if (params.page !== undefined) searchParams.append("page", String(params.page));
+      if (params.per_page !== undefined) searchParams.append("per_page", String(params.per_page));
+      if (params.q) searchParams.append("q", params.q);
+
+      const qs = searchParams.toString();
+      if (qs) url += `?${qs}`;
+    }
+
+    // 2. Deduplication: return cached promise if exists
     if (requestCache.has(url)) {
       return await requestCache.get(url)!;
     }
 
-    // 2. Create request promise and store in cache
-    const requestPromise = (async (): Promise<LokasiKampusResponse> => {
+    // 3. Create request promise and store in cache
+    const requestPromise = (async (): Promise<RuanganResponse> => {
       const res = await fetch(url, {
         method: "GET",
         headers: {
@@ -67,18 +81,18 @@ export const fetchAllLokasiKampus = async (): Promise<LokasiKampusResponse> => {
         throw new Error((responseData as { message?: string })?.message || `HTTP error! status: ${res.status}`);
       }
 
-      return responseData as LokasiKampusResponse;
+      return responseData as RuanganResponse;
     })();
 
     requestCache.set(url, requestPromise);
 
-    // 3. Clear cache entry after 30 seconds
+    // 4. Clear cache entry after 30 seconds
     setTimeout(() => requestCache.delete(url), 30 * 1000);
 
-    // 4. Return the result
+    // 5. Return the result
     return await requestPromise;
   } catch (error) {
-    console.error("fetchAllLokasiKampus error:", error);
+    console.error("fetchAllRuangan error:", error);
     throw error;
   }
 };

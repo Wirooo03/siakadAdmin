@@ -1,6 +1,6 @@
 // Proxy route for gedung data from external SIAKAD service
 import { NextResponse, type NextRequest } from "next/server";
-import type { GedungResponse } from "@/lib/services/data-kampus/gedung/type";
+import type { GedungResponse } from "@/lib/services/data-kampus/pendidikan-tinggi/gedung/type";
 
 // External SIAKAD base URL. Prefer server env SIAKAD_URL, fallback to NEXT_PUBLIC_API_URL
 const SIAKAD_URL = process.env.SIAKAD_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "";

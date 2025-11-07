@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useGedungTable } from "@/lib/hooks/data-kampus/gedung/useGedungTable";
-import type { GedungItem } from "@/lib/services/data-kampus/gedung/type";
+import { useGedungTable } from "@/lib/hooks/data-kampus/perguruan-tinggi/gedung/useGedungTable";
+import type { GedungItem } from "@/lib/services/data-kampus/pendidikan-tinggi/gedung/type";
 
 import Link from 'next/link';
 import { 

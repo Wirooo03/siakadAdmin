@@ -1,46 +1,60 @@
 // =========================
-// src/lib/services/perkuliahan/slot-waktu/fetchAllSlotWaktu.ts
+// src/lib/services/data-kampus/gedung/fetchAllGedung.ts
 // =========================
-// Service to fetch slot waktu data from the internal proxy route
-// Mirrors structure and behavior of fetchAllLokasiKampus.ts (no pagination)
+// Service to fetch gedung data from the internal proxy route
+// Mirrors structure and behavior of fetchAllFak.ts (paginated response)
 // =========================
-import type { SlotWaktuResponse } from "@/lib/services/perkuliahan/slot-waktu/type";
+import type { GedungResponse } from "@/lib/services/data-kampus/pendidikan-tinggi/gedung/type";
 import { buildApiUrl } from "@/lib/util/basePathConfigure";
 
 // =========================
 // Constants
 // =========================
-const API_ENDPOINT = buildApiUrl("/api/perkuliahan/slot-waktu");
+const API_ENDPOINT = buildApiUrl("/api/data-kampus/gedung");
 
 // =========================
 // Request Cache for Deduplication
 // =========================
 // Cache ongoing requests by full URL to avoid duplicate network calls
-const requestCache = new Map<string, Promise<SlotWaktuResponse>>();
+const requestCache = new Map<string, Promise<GedungResponse>>();
 
 // =========================
 // Service Function
 // =========================
 /**
- * Fetch all slot waktu from internal route `/api/perkuliahan/slot-waktu`.
- * Returns SlotWaktuResponse which will be consumed by callers.
+ * Fetch all gedung from internal route `/api/data-kampus/gedung`.
+ * Accepts optional params: page, per_page, q
+ * Returns GedungResponse which will be consumed by callers.
  *
  * Implementation notes:
  * - Uses a simple request deduplication cache (Map) so concurrent calls for the same
  *   URL share the same promise.
  * - Cleans the cache entry after 30 seconds to avoid unbounded memory growth.
  */
-export const fetchAllSlotWaktu = async (): Promise<SlotWaktuResponse> => {
+export const fetchAllGedung = async (
+  params?: { page?: number; per_page?: number; q?: string }
+): Promise<GedungResponse> => {
   try {
-    const url = API_ENDPOINT;
+    // 1. Build URL with query parameters
+    let url = API_ENDPOINT;
 
-    // 1. Deduplication: return cached promise if exists
+    if (params) {
+      const searchParams = new URLSearchParams();
+      if (params.page !== undefined) searchParams.append("page", String(params.page));
+      if (params.per_page !== undefined) searchParams.append("per_page", String(params.per_page));
+      if (params.q) searchParams.append("q", params.q);
+
+      const qs = searchParams.toString();
+      if (qs) url += `?${qs}`;
+    }
+
+    // 2. Deduplication: return cached promise if exists
     if (requestCache.has(url)) {
       return await requestCache.get(url)!;
     }
 
-    // 2. Create request promise and store in cache
-    const requestPromise = (async (): Promise<SlotWaktuResponse> => {
+    // 3. Create request promise and store in cache
+    const requestPromise = (async (): Promise<GedungResponse> => {
       const res = await fetch(url, {
         method: "GET",
         headers: {
@@ -67,18 +81,18 @@ export const fetchAllSlotWaktu = async (): Promise<SlotWaktuResponse> => {
         throw new Error((responseData as { message?: string })?.message || `HTTP error! status: ${res.status}`);
       }
 
-      return responseData as SlotWaktuResponse;
+      return responseData as GedungResponse;
     })();
 
     requestCache.set(url, requestPromise);
 
-    // 3. Clear cache entry after 30 seconds
+    // 4. Clear cache entry after 30 seconds
     setTimeout(() => requestCache.delete(url), 30 * 1000);
 
-    // 4. Return the result
+    // 5. Return the result
     return await requestPromise;
   } catch (error) {
-    console.error("fetchAllSlotWaktu error:", error);
+    console.error("fetchAllGedung error:", error);
     throw error;
   }
 };

@@ -6,8 +6,8 @@ import {
   UseQueryOptions,
 } from "@tanstack/react-query";
 
-import { fetchAllJenjangPendidikan } from "@/lib/services/perkuliahan/jenjang-pendidikan/fetchAllJenjangPendidikan";
-import type { JenjangPendidikanResponse } from "@/lib/services/perkuliahan/jenjang-pendidikan/type";
+import { fetchAllJenjangPendidikan } from "@/lib/services/data-kampus/data-kuliah/jenjang-pendidikan/fetchAllJenjangPendidikan";
+import type { JenjangPendidikanResponse } from "@/lib/services/data-kampus/data-kuliah/jenjang-pendidikan/type";
 
 // =========================
 // Query Keys

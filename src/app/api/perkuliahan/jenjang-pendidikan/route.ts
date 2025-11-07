@@ -1,6 +1,6 @@
 // Proxy route for jenjang pendidikan data from external SIAKAD service
 import { NextResponse, type NextRequest } from "next/server";
-import type { JenjangPendidikanResponse } from "@/lib/services/perkuliahan/jenjang-pendidikan/type";
+import type { JenjangPendidikanResponse } from "@/lib/services/data-kampus/data-kuliah/jenjang-pendidikan/type";
 
 // External SIAKAD base URL. Prefer server env SIAKAD_URL, fallback to NEXT_PUBLIC_API_URL
 const SIAKAD_URL = process.env.SIAKAD_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "";

@@ -1,7 +1,7 @@
 "use client";
 
-import { useJenjangPendidikanTable } from "@/lib/hooks/perkuliahan/jenjang-pendidikan/useJenjangPendidikanTable";
-import type { JenjangPendidikanItem } from "@/lib/services/perkuliahan/jenjang-pendidikan/type";
+import { useJenjangPendidikanTable } from "@/lib/hooks/data-kampus/data-kuliah/jenjang-pendidikan/useJenjangPendidikanTable";
+import type { JenjangPendidikanItem } from "@/lib/services/data-kampus/data-kuliah/jenjang-pendidikan/type";
 
 import { 
 	FiAward,

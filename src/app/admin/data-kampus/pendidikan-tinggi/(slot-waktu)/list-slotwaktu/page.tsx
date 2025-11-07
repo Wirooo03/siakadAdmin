@@ -1,7 +1,7 @@
 "use client";
 
-import { useSlotWaktuTable } from "@/lib/hooks/perkuliahan/slot-waktu/useSlotWaktuTable";
-import type { SlotWaktuItem } from "@/lib/services/perkuliahan/slot-waktu/type";
+import { useSlotWaktuTable } from "@/lib/hooks/data-kampus/perguruan-tinggi/slot-waktu/useSlotWaktuTable";
+import type { SlotWaktuItem } from "@/lib/services/data-kampus/pendidikan-tinggi/slot-waktu/type";
 
 import { 
 	FiClock,

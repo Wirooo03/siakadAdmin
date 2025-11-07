@@ -105,7 +105,7 @@ const menuItems: MenuItem[] = [
 					},
 					{
 						label: "Jenjang Pendidikan",
-						path: "/admin/perkuliahan/list-tkpend",
+						path: "/admin/data-kampus/data-kuliah/list-tkpend",
 						icon: "award",
 					},
 					{
