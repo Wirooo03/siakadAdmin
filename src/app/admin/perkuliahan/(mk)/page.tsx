@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useMkTable } from "@/lib/hooks/perkuliahan/mk/useMkTable";
+//import { useMkTable } from "@/lib/hooks/data-kampus/perkuliahan/mk/useMkTable";
 import type { MataKuliahItem } from "@/lib/services/perkuliahan/mk/type";
 
 import Link from 'next/link';
