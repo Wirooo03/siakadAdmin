@@ -40,8 +40,8 @@ export default function Page() {
 	// Get icon based on periode
 	const getPeriodeIcon = (periode: string) => {
 		switch (periode) {
-			case 'Pagi': return <FiSunrise className="text-orange-500" />;
-			case 'Siang': return <FiSun className="text-yellow-500" />;
+			case 'Pagi': return <FiSunrise className="text-yellow-500" />;
+			case 'Siang': return <FiSun className="text-orange-400" />;
 			case 'Malam': return <FiMoon className="text-indigo-500" />;
 			default: return <FiClock />;
 		}
@@ -50,8 +50,8 @@ export default function Page() {
 	// Get badge color based on periode
 	const getPeriodeBadge = (periode: string) => {
 		switch (periode) {
-			case 'Pagi': return 'bg-orange-100 text-orange-700 border-orange-300';
-			case 'Siang': return 'bg-yellow-100 text-yellow-700 border-yellow-300';
+			case 'Pagi': return 'bg-yellow-100 text-yellow-700 border-yellow-300';
+			case 'Siang': return 'bg-orange-100 text-orange-700 border-orange-300';
 			case 'Malam': return 'bg-indigo-100 text-indigo-700 border-indigo-300';
 			default: return 'bg-slate-100 text-slate-700 border-slate-300';
 		}
