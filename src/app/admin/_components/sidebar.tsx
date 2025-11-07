@@ -105,7 +105,7 @@ const menuItems: MenuItem[] = [
 					},
 					{
 						label: "Jenjang Pendidikan",
-						path: "/admin/data-kampus/data-kuliah/list-tkpend",
+						path: "/admin/perkuliahan/list-tkpend",
 						icon: "award",
 					},
 					{
@@ -120,7 +120,7 @@ const menuItems: MenuItem[] = [
 					},
 					{
 						label: "Kelas Perkuliahan",
-						path: "/admin/data-kampus/data-kuliah/list-klskul",
+						path: "/admin/perkuliahan/list-klskul",
 						icon: "book",
 					},
 				],
